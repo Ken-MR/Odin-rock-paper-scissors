@@ -15,7 +15,7 @@ function getComputerChoice() {
 }
 
 function getPlayerSelection() {
-    let answer = prompt("Let's play rock, paper, scissors. Please pick one: ");
+    let answer = prompt("Please pick rock, paper, or scissors: ");
     answer = validChoice(answer);
     return answer;
 }
@@ -68,21 +68,36 @@ function playRound(player, computer) {
     return determineWinner(player, computer);
 }
 
-let victor = '';
+function game() {
+    let playerPoints = 0;
+    let computerPoints = 0;
+    let victor = '';
+    let playerSelection = '';
+    let computerSelection = '';
 
-let playerSelection = getPlayerSelection();
-
-console.log('You chose ' + playerSelection);
-
-let computerSelection = getComputerChoice();
-
-console.log('Okay, rock, paper, scissors, shoot!');
-
-victor = playRound(playerSelection, computerSelection);
-
-if (victor === "victory") {
-    console.log('You win!');
+    for (let i = 0; i < 5; i++){
+        playerSelection = getPlayerSelection();
+        console.log('You chose ' + playerSelection);
+        computerSelection = getComputerChoice();
+        console.log('Okay, rock, paper, scissors, shoot!');
+        victor = playRound(playerSelection, computerSelection);
+        if (victor === "victory") {
+            playerPoints++;
+            console.log('You won! The score is ' + playerPoints + ' to ' + computerPoints + '.');
+        }
+        else {
+            computerPoints++;
+            console.log('You lost. The score is ' + playerPoints + ' to ' + computerPoints + '.')
+        }
+    }
+    if (computerPoints > playerPoints) {
+        console.log('You lost, better luck next time.');
+    }
+    else {
+        console.log('You won! Congratulations!');
+    }
 }
-else {
-    console.log('You lose.')
-}
+
+console.log("Let's play rock, paper, scissors.");
+
+game();
