@@ -14,6 +14,18 @@ function getComputerChoice() {
     }
 }
 
+function getPlayerSelection() {
+    let answer = prompt("Let's play rock, paper, scissors. Please pick one: ");
+    while (!(answer === "rock") && !(answer === "paper") && !(answer === "scissors")) {
+        answer = prompt("I'm sorry, that is an invalid choice. Please try again: ");
+    }
+    return answer;
+}
+
+let playerSelection = getPlayerSelection();
+
+console.log('You play ' + playerSelection);
+
 let computerSelection = getComputerChoice();
 
 console.log('The computer plays ' + computerSelection);
