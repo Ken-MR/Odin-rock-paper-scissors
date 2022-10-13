@@ -15,82 +15,97 @@ function getComputerChoice() {
 }
 
 function determineWinner(player, computer) {
+    let victor;
     if ((player === "rock") && (computer === "paper")) {
-        console.log('Paper covers rock!');
-        return "defeat";
+        gameRound.textContent = 'Paper covers rock!';
+        computerPoints++;
+        results.textContent = 'The current score is\n' +
+        'Player: ' + playerPoints +
+        ' to Computer: ' + computerPoints;
+        victor = "defeat";
     }
     else if ((player === "scissors") && (computer === "rock")) {
-        console.log('Rock beats scissors!');
-        return "defeat";
+        gameRound.textContent = 'Rock beats scissors!';
+        computerPoints++;
+        results.textContent = 'The current score is\n' +
+        'Player: ' + playerPoints +
+        ' to Computer: ' + computerPoints;
+        victor = "defeat";
     }
     else if ((player === "paper") && (computer === "scissors")) {
-        console.log('Scissors cuts paper!');
-        return "defeat";
+        gameRound.textContent = 'Scissors cuts paper!';
+        computerPoints++;
+        results.textContent = 'The current score is\n' +
+        'Player: ' + playerPoints +
+        ' to Computer: ' + computerPoints;
+        victor = "defeat";
     }
     else if ((player === "paper") && (computer === "rock")) {
-        console.log('Paper covers rock!');
-        return "victory";
+        gameRound.textContent = 'Paper covers rock!';
+        playerPoints++;
+        results.textContent = 'The current score is\n' +
+        'Player: ' + playerPoints +
+        ' to Computer: ' + computerPoints;
+        victor = "victory";
     }
     else if ((player === "rock") && (computer === "scissors")) {
-        console.log('Rock beats scissors!');
-        return "victory";
+        gameRound.textContent = 'Rock beats scissors!';
+        playerPoints++;
+        results.textContent = 'The current score is\n' +
+        'Player: ' + playerPoints +
+        ' to Computer: ' + computerPoints;
+        victor = "victory";
     }
     else if ((player === "scissors") && (computer === "paper")) {
-        console.log('Scissors cuts paper!');
-        return "victory";
+        gameRound.textContent = 'Scissors cuts paper!';
+        playerPoints++;
+        results.textContent = 'The current score is\n' +
+        'Player: ' + playerPoints +
+        ' to Computer: ' + computerPoints;
+        victor = "victory";
     }
+    return;
 }
 
 function playRound(player) {
+    if ((playerPoints >= 5) || (computerPoints >= 5)) {
+        playerPoints = 0; // reset score if the game previously ended
+        computerPoints = 0;
+    }
     let computer = getComputerChoice(); // gets computer choice
     if (player === computer) {  // verifies a tie hasn't occurred 
-        console.log('You both played ' + player + '. Go again.')
+        gameMessage.textContent = 'You both played ' + player + '. Go again.'
         return;
     }
-    console.log('You play ' + player);
-    console.log('The computer plays ' + computer);
 
-    return determineWinner(player, computer);
+    gameMessage.textContent = `You play ${player}\nThe computer plays ${computer}`; // add another div to display messages to the player about game status
+    determineWinner(player, computer);
+    gameStatus();
+    return;
 }
 
-function game() {
-    let playerPoints = 0;
-    let computerPoints = 0;
-    let victor = '';
-    let playerSelection = '';
-    let computerSelection = '';
-
-   // for (let i = 0; i < 5; i++){  commented out so max round number isn't tallied
-        playerSelection = getPlayerSelection();
-        console.log('You chose ' + playerSelection);
-        computerSelection = getComputerChoice();
-        console.log('Okay, rock, paper, scissors, shoot!');
-        victor = playRound(playerSelection, computerSelection);
-        if (victor === "victory") {
-            playerPoints++;
-            console.log('You won! The score is ' + playerPoints + ' to ' + computerPoints + '.');
-        }
-        else {
-            computerPoints++;
-            console.log('You lost. The score is ' + playerPoints + ' to ' + computerPoints + '.')
-        }
-   /* }
-    if (computerPoints > playerPoints) {    commented out so victory isn't calculated
-        console.log('You lost, better luck next time.');
+function gameStatus () {
+    results.textContent = 'The score is: \n' + `Player: ${playerPoints} to Computer: ${computerPoints}\n`;
+    if (playerPoints >= 5){
+    gameMessage.textContent = 'You win!\n' + 'Play again? Press any button';
     }
-    else {
-        console.log('You won! Congratulations!');
-    }*/
+    else if (computerPoints >= 5) {
+    gameMessage.textContent = 'You lost.\n' + 'Play again? Press any button.';
+    }
+    return;
 }
 
-console.log("Let's play rock, paper, scissors.");
+let playerPoints = 0; // trackers for points
+let computerPoints = 0;
 
-
-//game();   commented out so rounds are not set
-
-const rock = document.querySelector('#rock');   // query selectors to read each potential input
+const rock = document.querySelector('#rock');   // query selectors to read each potential input and output
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
+const results = document.querySelector('#results');
+const gameRound = document.querySelector('#gameRound');
+const gameMessage = document.querySelector('#gameMessage');
+
+gameRound.textContent = "Let's play rock, paper, scissors. Please choose one.";
 
 rock.addEventListener('click', () => {
     playRound("rock");
