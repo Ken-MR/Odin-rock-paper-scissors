@@ -14,19 +14,6 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerSelection() {
-    let answer = prompt("Please pick rock, paper, or scissors: ");
-    answer = validChoice(answer);
-    return answer;
-}
-
-function validChoice(choice) {
-    while (!(choice === "rock") && !(choice === "paper") && !(choice === "scissors")) {
-        choice = prompt("I'm sorry, that is an invalid choice. Please try again: ");
-    }
-    return choice;
-}
-
 function determineWinner(player, computer) {
     if ((player === "rock") && (computer === "paper")) {
         console.log('Paper covers rock!');
@@ -54,13 +41,11 @@ function determineWinner(player, computer) {
     }
 }
 
-function playRound(player, computer) {
-    while (player === computer) {
+function playRound(player) {
+    let computer = getComputerChoice(); // gets computer choice
+    if (player === computer) {  // verifies a tie hasn't occurred 
         console.log('You both played ' + player + '. Go again.')
-        player = prompt("Choose another option: ")
-        validChoice(player);
-        computer = getComputerChoice();
-        console.log('Okay, rock, paper, scissors, shoot!');
+        return;
     }
     console.log('You play ' + player);
     console.log('The computer plays ' + computer);
@@ -75,7 +60,7 @@ function game() {
     let playerSelection = '';
     let computerSelection = '';
 
-    for (let i = 0; i < 5; i++){
+   // for (let i = 0; i < 5; i++){  commented out so max round number isn't tallied
         playerSelection = getPlayerSelection();
         console.log('You chose ' + playerSelection);
         computerSelection = getComputerChoice();
@@ -89,15 +74,32 @@ function game() {
             computerPoints++;
             console.log('You lost. The score is ' + playerPoints + ' to ' + computerPoints + '.')
         }
-    }
-    if (computerPoints > playerPoints) {
+   /* }
+    if (computerPoints > playerPoints) {    commented out so victory isn't calculated
         console.log('You lost, better luck next time.');
     }
     else {
         console.log('You won! Congratulations!');
-    }
+    }*/
 }
 
 console.log("Let's play rock, paper, scissors.");
 
-game();
+
+//game();   commented out so rounds are not set
+
+const rock = document.querySelector('#rock');   // query selectors to read each potential input
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+rock.addEventListener('click', () => {
+    playRound("rock");
+});
+
+paper.addEventListener('click', () => {
+    playRound("paper");
+});
+
+scissors.addEventListener('click', () => {
+    playRound("scissors");
+});
