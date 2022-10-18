@@ -17,7 +17,7 @@ function getComputerChoice() {
 function determineWinner(player, computer) {
     let victor;
     if ((player === "rock") && (computer === "paper")) {
-        gameRound.textContent = 'Paper covers rock!';
+        roundResults.textContent = 'Paper covers rock!';
         computerPoints++;
         results.textContent = 'The current score is\n' +
         'Player: ' + playerPoints +
@@ -25,7 +25,7 @@ function determineWinner(player, computer) {
         victor = "defeat";
     }
     else if ((player === "scissors") && (computer === "rock")) {
-        gameRound.textContent = 'Rock beats scissors!';
+        roundResults.textContent = 'Rock beats scissors!';
         computerPoints++;
         results.textContent = 'The current score is\n' +
         'Player: ' + playerPoints +
@@ -33,7 +33,7 @@ function determineWinner(player, computer) {
         victor = "defeat";
     }
     else if ((player === "paper") && (computer === "scissors")) {
-        gameRound.textContent = 'Scissors cuts paper!';
+        roundResults.textContent = 'Scissors cuts paper!';
         computerPoints++;
         results.textContent = 'The current score is\n' +
         'Player: ' + playerPoints +
@@ -41,7 +41,7 @@ function determineWinner(player, computer) {
         victor = "defeat";
     }
     else if ((player === "paper") && (computer === "rock")) {
-        gameRound.textContent = 'Paper covers rock!';
+        roundResults.textContent = 'Paper covers rock!';
         playerPoints++;
         results.textContent = 'The current score is\n' +
         'Player: ' + playerPoints +
@@ -49,7 +49,7 @@ function determineWinner(player, computer) {
         victor = "victory";
     }
     else if ((player === "rock") && (computer === "scissors")) {
-        gameRound.textContent = 'Rock beats scissors!';
+        roundResults.textContent = 'Rock beats scissors!';
         playerPoints++;
         results.textContent = 'The current score is\n' +
         'Player: ' + playerPoints +
@@ -57,7 +57,7 @@ function determineWinner(player, computer) {
         victor = "victory";
     }
     else if ((player === "scissors") && (computer === "paper")) {
-        gameRound.textContent = 'Scissors cuts paper!';
+        roundResults.textContent = 'Scissors cuts paper!';
         playerPoints++;
         results.textContent = 'The current score is\n' +
         'Player: ' + playerPoints +
@@ -74,11 +74,11 @@ function playRound(player) {
     }
     let computer = getComputerChoice(); // gets computer choice
     if (player === computer) {  // verifies a tie hasn't occurred 
-        gameMessage.textContent = 'You both played ' + player + '. Go again.'
+        roundResults.textContent = 'You both played ' + player + '. Go again.'
         return;
     }
 
-    gameMessage.textContent = `You play ${player}\nThe computer plays ${computer}`; // add another div to display messages to the player about game status
+    gameRound.innerHTML = `You play ${player}` + '<br>' + `The computer plays ${computer}`; // add another div to display messages to the player about game status
     determineWinner(player, computer);
     gameStatus();
     return;
@@ -87,10 +87,10 @@ function playRound(player) {
 function gameStatus () {
     results.textContent = 'The score is: \n' + `Player: ${playerPoints} to Computer: ${computerPoints}\n`;
     if (playerPoints >= 5){
-    gameMessage.textContent = 'You win!\n' + 'Play again? Press any button';
+    gameRound.textContent = 'You win!\n' + 'Play again? Press any button';
     }
     else if (computerPoints >= 5) {
-    gameMessage.textContent = 'You lost.\n' + 'Play again? Press any button.';
+    gameRound.textContent = 'You lost.\n' + 'Play again? Press any button.';
     }
     return;
 }
